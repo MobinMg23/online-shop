@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login as dj_login, logout as dj_lo
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import User, Order
 from products.models import Product, Category
-from .forms import LoginForm, OrderForm
+from .forms import LoginForm, OrderForm, ProfieleEditeForm
 
 
 class SignupAPIViews(APIView):
@@ -102,4 +102,27 @@ class Cart(APIView):
         orders = Order.objects.filter(user=request.user)
         return Response({'orders': orders})
     
+
+class ProfileEditeAPIView(APIView):
+    permission_classes = [IsAuthenticated,]
+    renderer_classes = [TemplateHTMLRenderer,]
+    template_name = 'profile-edite.html'
+
+    def get(self, request):
+        user = get_object_or_404(User, id=request.user.id)
+        form = ProfieleEditeForm(instance=user)
+        return Response({'form': form})
+    
+    def post(self, request):
+        user = get_object_or_404(User, id=request.user.id)
+        form = ProfieleEditeForm(request.POST, instance=user)  
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        return Response({'form': form}, template_name=self.template_name)
+
+
+
+
+
 

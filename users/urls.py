@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SignupAPIViews, LoginAPIView, LogoutAPIView, Cart, OrderCreateAPIView, OrderDeleteAPIView
+from .views import SignupAPIViews, LoginAPIView, LogoutAPIView, Cart, OrderCreateAPIView, OrderDeleteAPIView, ProfileEditeAPIView
 
 urlpatterns = [
     path('signup/', SignupAPIViews.as_view(), name='signup'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('cart/', Cart.as_view(), name='cart'),
     path('order/', OrderCreateAPIView.as_view(), name='order'),
     path('order-delete/<int:id>/', OrderDeleteAPIView.as_view(), name='delete-order'),
+    path('profile/', ProfileEditeAPIView.as_view(), name='profile-edite'),
 ]

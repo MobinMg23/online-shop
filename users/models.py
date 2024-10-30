@@ -23,4 +23,3 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
     quantity = models.IntegerField(default=1)
-

@@ -4,6 +4,7 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.renderers import TemplateHTMLRenderer
 from .models import Category, Product
+from users.models import Order
 from users.forms import OrderForm
 
 class HomeAPIView(APIView):
@@ -14,9 +15,11 @@ class HomeAPIView(APIView):
     def get(self, request):
         categorys = Category.objects.all()
         products = Product.objects.all()
+        orders = Order.objects.count()
         return Response({
             'categorys': categorys,
-            'products': products
+            'products': products,
+            'orders': orders
         })
 
 
